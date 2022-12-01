@@ -1,4 +1,5 @@
 // implement your posts router here
+const { json } = require('express')
 const express = require('express')
 
 const PostModel = require('./posts-model')
@@ -67,7 +68,21 @@ router.put('/:id', async (req,res) => {
     }
 })
 
+router.delete('/:id', async (req,res) => {
+    const {id} = req.params;
+    try{
+        const post = await PostModel.findById(id);
+       const deleted = await PostModel.remove(id);
+        if(!deleted){
+            res.status(404).json({ message: "The post with the specified ID does not exist" })
+        }else{
+             res.status(200).json(post)
+        }
+    }catch(err){
+        res.status(500).json({ message: "The post could not be removed" })
+    }
 
+})
 
 //this router will hold all our request to the POST endpoint and we will export it at the bottom,
 //using export.modules
