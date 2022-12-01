@@ -5,9 +5,12 @@
 // third we can add a build in middlewear using the use keyword
 const express = require('express')
 
+const postRoutes = require('./posts/posts-router');
+
 const server = express();
 
 server.use(express.json())
+server.use('/posts', postRoutes)
 
 //now we need to export our server variable with module export so we can listen for it in our index.js file
 

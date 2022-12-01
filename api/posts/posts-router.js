@@ -5,6 +5,10 @@ const express = require('express')
 //notice the capitalized Router method
 const router = express.Router()
 
+router.get('/', (req,res) => {
+    res.send('welcome to the page')
+})
+
 //this router will hold all our request to the POST endpoint and we will export it at the bottom,
 //using export.modules
 
