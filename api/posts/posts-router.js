@@ -32,6 +32,21 @@ router.get('/:id', async (req,res) => {
     }
 })
 
+router.post('/', async (req,res) => {
+    const {title, contents} = req.body;
+    try {
+       const post = await PostModel.insert(req.body)
+       const {id} = post;
+       if(title || contents){
+        res.status(201).json({id: id, title: title, contents: contents})
+       }else{
+        res.status(404).json({ message: "Please provide title and contents for the post" })        
+       }
+    }catch(err){
+        res.status(400).json({ message: "There was an error while saving the post to the database" })
+    }
+})
+
 //this router will hold all our request to the POST endpoint and we will export it at the bottom,
 //using export.modules
 
